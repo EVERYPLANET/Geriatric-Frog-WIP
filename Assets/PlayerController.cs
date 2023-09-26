@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,8 +11,12 @@ public class PlayerController : MonoBehaviour
     public float moveVert = 0;
     public float moveHor = 0;
 
-    public string buttonA = "joystick 1 button 0";
-    public string buttonB = "joystick 1 button 11";
+    public string buttonA = "joystick 1 button 11";
+    public string buttonB = "joystick 1 button 0";
+
+    public GameObject item1;
+    public GameObject item2;
+    private string currentActive = "item1";
 
     public float speed = 5f;
 
@@ -43,7 +48,25 @@ public class PlayerController : MonoBehaviour
             //player.constraints = RigidbodyConstraints.FreezeRotationY;
         }
 
-
+        if (Input.GetKeyDown(buttonB))
+        {
+            Outline item1Outline = item1.GetComponent<Outline>();
+            Outline item2Outline = item2.GetComponent<Outline>();
+            if (currentActive == "item1")
+            {
+                currentActive = "item2";
+                
+                item1Outline.enabled = false;
+                item2Outline.enabled = true;
+            }
+            else if (currentActive == "item2")
+            {
+                currentActive = "item1";
+                
+                item1Outline.enabled = true;
+                item2Outline.enabled = false;
+            }
+        }
 
         //for (int i = 0;i < 20; i++) {
         //    if(Input.GetKeyDown("joystick 1 button "+i)){
